@@ -1,8 +1,8 @@
 {
   "title": "BPN Mega Feed",
   "description": "A combined feed of podcast episodes from the BPN network.",
-  "siteUrl": "https://example.com",
-  "feedUrl": "https://example.com/mega-feed.xml",
+  "siteUrl": "https://jethrojones.github.io/bpnmegafeed/",
+  "feedUrl": "https://jethrojones.github.io/bpnmegafeed/mega-feed.xml",
   "language": "en-us",
   "author": "BPN",
   "ownerName": "BPN",

@@ -88,7 +88,17 @@ http://localhost:3000/feed.xml
 
 ## Hosting
 
-Host `public/mega-feed.xml` anywhere that gives you a stable public URL, such as Cloudflare Pages, Netlify, GitHub Pages, or your own website.
+This repo is set up for GitHub Pages. The deployed feed URL is:
+
+```text
+https://jethrojones.github.io/bpnmegafeed/mega-feed.xml
+```
+
+The GitHub Actions workflow in `.github/workflows/pages.yml` builds and deploys the static feed on every push, on manual dispatch, and hourly.
+
+If the repository has a `TRANSISTOR_API_KEY` secret, the workflow refreshes `feeds.json` from Transistor before building. Without that secret, it builds from the committed `feeds.json` list.
+
+You can also host `public/mega-feed.xml` anywhere else that gives you a stable public URL, such as Cloudflare Pages, Netlify, or your own website.
 
 For production, regenerate the file on a schedule, such as every 15-60 minutes. Podcast audio files remain hosted by the original podcast hosts because this tool only merges RSS metadata.
 
