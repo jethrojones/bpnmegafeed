@@ -1,5 +1,5 @@
 {
-  "name": "mega-podcast-rss",
+  "name": "bpn-mega-feed",
   "version": "0.1.0",
   "description": "Combine podcast RSS feeds into one network feed while preserving original audio URLs.",
   "type": "module",
@@ -10,6 +10,6 @@
     "test": "node --test"
   },
   "dependencies": {
-    "fast-xml-parser": "^4.5.3"
+    "fast-xml-parser": "^5.7.2"
   }
 }

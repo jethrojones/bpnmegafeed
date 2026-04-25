@@ -1,0 +1,73 @@
+# BPN Mega Feed
+
+Build one podcast RSS feed from many existing podcast RSS feeds.
+
+The generated feed does not rehost or proxy audio. Each episode keeps its original `<enclosure url="...">`, so downloads from podcast apps go back to the original podcast host.
+
+## Setup
+
+```bash
+npm install
+```
+
+## Add Or Remove Shows
+
+Edit `feeds.json` and add each source podcast RSS feed URL:
+
+```json
+[
+  "https://feeds.transistor.fm/transformative-principal",
+  "https://feeds.transistor.fm/resilient-schools",
+  "https://feeds.transistor.fm/cybertraps-podcast"
+]
+```
+
+## Configure The Network Feed
+
+Edit `mega-feed.config.json`:
+
+- `title`: network feed title
+- `description`: network feed description
+- `siteUrl`: website URL for the network
+- `feedUrl`: final public URL where this RSS feed will live
+- `ownerName` and `ownerEmail`: podcast owner metadata
+- `imageUrl`: square podcast artwork URL
+- `category`: top-level podcast category
+- `maxEpisodes`: maximum merged episodes to include
+- `outputPath`: where the generated XML file is written
+
+## Build
+
+```bash
+npm run build
+```
+
+This writes:
+
+```text
+public/mega-feed.xml
+```
+
+## Preview Locally
+
+```bash
+npm start
+```
+
+Then open:
+
+```text
+http://localhost:3000/feed.xml
+```
+
+## Hosting
+
+Host `public/mega-feed.xml` anywhere that gives you a stable public URL, such as Cloudflare Pages, Netlify, GitHub Pages, or your own website.
+
+For production, regenerate the file on a schedule, such as every 15-60 minutes. Podcast audio files remain hosted by the original podcast hosts because this tool only merges RSS metadata.
+
+## Test
+
+```bash
+npm test
+```
