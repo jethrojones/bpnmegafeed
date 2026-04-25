@@ -10,6 +10,32 @@ The generated feed does not rehost or proxy audio. Each episode keeps its origin
 npm install
 ```
 
+## Transistor API Key
+
+Do not commit your API key. Save it in a local `.env` file, which is ignored by Git:
+
+```bash
+cp .env.example .env
+```
+
+Then edit `.env` and replace `your_transistor_api_key_here` with your real Transistor API key.
+
+The importer uses the official Transistor API `x-api-key` header and fetches show RSS URLs from `/v1/shows`.
+
+## Seed Shows From Transistor
+
+After creating `.env`, run:
+
+```bash
+npm run feeds:transistor
+```
+
+This replaces `feeds.json` with the RSS feed URLs for public Transistor shows on your account. To include private shows too, set this in `.env`:
+
+```bash
+TRANSISTOR_INCLUDE_PRIVATE=true
+```
+
 ## Add Or Remove Shows
 
 Edit `feeds.json` and add each source podcast RSS feed URL:

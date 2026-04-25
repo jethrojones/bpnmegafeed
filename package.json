@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "build": "node src/build-feed.js",
+    "feeds:transistor": "node src/update-feeds-from-transistor.js",
     "start": "node src/server.js",
     "test": "node --test"
   },
