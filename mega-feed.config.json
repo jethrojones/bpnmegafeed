@@ -1,0 +1,14 @@
+{
+  "title": "Mega Podcast Network",
+  "description": "A combined feed of podcast episodes from the network.",
+  "siteUrl": "https://example.com",
+  "feedUrl": "https://example.com/mega-feed.xml",
+  "language": "en-us",
+  "author": "Mega Podcast Network",
+  "ownerName": "Mega Podcast Network",
+  "ownerEmail": "hello@example.com",
+  "imageUrl": "https://example.com/podcast-artwork.jpg",
+  "category": "Education",
+  "maxEpisodes": 250,
+  "outputPath": "public/mega-feed.xml"
+}
