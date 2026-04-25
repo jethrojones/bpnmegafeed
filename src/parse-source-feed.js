@@ -18,19 +18,21 @@ export function parseSourceFeed(xml, sourceUrl) {
   }
 
   const title = asText(channel.title) || sourceUrl;
+  const imageUrl = getFeedImage(channel);
   const rawItems = asArray(channel.item);
   const items = rawItems
-    .map((rawItem) => normalizeItem(rawItem, title, sourceUrl))
+    .map((rawItem) => normalizeItem(rawItem, title, sourceUrl, imageUrl))
     .filter(Boolean);
 
   return {
     title,
     sourceUrl,
+    imageUrl,
     items
   };
 }
 
-function normalizeItem(rawItem, sourceFeedTitle, sourceFeedUrl) {
+function normalizeItem(rawItem, sourceFeedTitle, sourceFeedUrl, sourceFeedImageUrl) {
   const enclosure = normalizeEnclosure(rawItem.enclosure);
 
   if (!enclosure?.url) {
@@ -53,7 +55,7 @@ function normalizeItem(rawItem, sourceFeedTitle, sourceFeedUrl) {
     episode: asText(rawItem["itunes:episode"]),
     season: asText(rawItem["itunes:season"]),
     episodeType: asText(rawItem["itunes:episodeType"]),
-    imageUrl: getItunesImage(rawItem["itunes:image"])
+    imageUrl: getItunesImage(rawItem["itunes:image"]) || sourceFeedImageUrl
   };
 }
 
@@ -79,6 +81,10 @@ function getItunesImage(image) {
   }
 
   return first["@_href"] || first["@_url"] || "";
+}
+
+function getFeedImage(channel) {
+  return getItunesImage(channel["itunes:image"]) || asText(channel.image?.url);
 }
 
 function asArray(value) {

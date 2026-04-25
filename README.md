@@ -58,6 +58,7 @@ Edit `mega-feed.config.json`:
 - `feedUrl`: final public URL where this RSS feed will live
 - `ownerName` and `ownerEmail`: podcast owner metadata
 - `imageUrl`: square podcast artwork URL
+- `artworkPath`: local artwork file copied into the GitHub Pages output
 - `category`: top-level podcast category
 - `maxEpisodes`: maximum merged episodes to include
 - `outputPath`: where the generated XML file is written

@@ -7,6 +7,7 @@ const sampleRss = `<?xml version="1.0"?>
   <channel>
     <title>Original Show</title>
     <link>https://example.com/show</link>
+    <itunes:image href="https://example.com/show.jpg"/>
     <item>
       <title>Episode One</title>
       <guid isPermaLink="false">episode-one-guid</guid>
@@ -28,6 +29,7 @@ test("parses a source podcast feed and preserves the original enclosure URL", ()
 
   assert.equal(parsed.title, "Original Show");
   assert.equal(parsed.sourceUrl, "https://feeds.example.com/original-show");
+  assert.equal(parsed.imageUrl, "https://example.com/show.jpg");
   assert.equal(parsed.items.length, 1);
   assert.deepEqual(parsed.items[0], {
     sourceFeedTitle: "Original Show",
@@ -57,4 +59,24 @@ test("ignores items without audio enclosures", () => {
   const parsed = parseSourceFeed(rss, "https://feeds.example.com/text");
 
   assert.equal(parsed.items.length, 0);
+});
+
+test("uses the source show artwork when an episode has no episode artwork", () => {
+  const rss = `<?xml version="1.0"?>
+  <rss version="2.0">
+    <channel>
+      <title>Original Show</title>
+      <image><url>https://example.com/show-art.jpg</url></image>
+      <item>
+        <title>Episode Without Custom Art</title>
+        <guid>episode-guid</guid>
+        <pubDate>Mon, 22 Apr 2024 10:00:00 GMT</pubDate>
+        <enclosure url="https://media.example.com/episode.mp3" length="12345" type="audio/mpeg"/>
+      </item>
+    </channel>
+  </rss>`;
+
+  const parsed = parseSourceFeed(rss, "https://feeds.example.com/original-show");
+
+  assert.equal(parsed.items[0].imageUrl, "https://example.com/show-art.jpg");
 });

@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { loadConfig, loadFeedUrls } from "./feed-sources.js";
 import { mergeFeedItems } from "./merge-feeds.js";
@@ -23,6 +23,7 @@ export async function buildFeed() {
 
   await mkdir(outputDir, { recursive: true });
   await writeFile(outputPath, xml, "utf8");
+  await copyArtwork(config, outputDir);
   await writeFile(path.join(outputDir, ".nojekyll"), "", "utf8");
   await writeFile(path.join(outputDir, "index.html"), createIndexHtml(config, items.length), "utf8");
 
@@ -31,6 +32,14 @@ export async function buildFeed() {
     sourceFeedCount: sourceFeeds.length,
     itemCount: items.length
   };
+}
+
+async function copyArtwork(config, outputDir) {
+  if (!config.artworkPath) {
+    return;
+  }
+
+  await copyFile(path.resolve(config.artworkPath), path.join(outputDir, path.basename(config.artworkPath)));
 }
 
 function createIndexHtml(config, itemCount) {
@@ -63,6 +72,7 @@ function createIndexHtml(config, itemCount) {
   <body>
     <main>
       <h1>${escapeHtml(config.title)}</h1>
+      ${config.imageUrl ? `<p><img src="${escapeHtml(config.imageUrl)}" alt="${escapeHtml(config.title)} artwork" style="display:block;width:min(18rem,100%);height:auto;"></p>` : ""}
       <p>${escapeHtml(config.description)}</p>
       <p>This generated podcast feed currently includes ${itemCount} recent episodes.</p>
       <p><a href="mega-feed.xml">Open the RSS feed</a></p>
