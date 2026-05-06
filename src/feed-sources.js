@@ -36,6 +36,7 @@ export async function loadConfig(filePath = "mega-feed.config.json") {
   return {
     maxEpisodes: 250,
     outputPath: "public/mega-feed.xml",
+    excludedFeedUrls: [],
     ...config
   };
 }

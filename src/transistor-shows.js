@@ -45,12 +45,15 @@ export async function fetchTransistorShows({
   return shows;
 }
 
-export function extractFeedUrls(shows) {
+export function extractFeedUrls(shows, { excludedFeedUrls = [] } = {}) {
+  const excluded = new Set(excludedFeedUrls.map((url) => String(url).trim()).filter(Boolean));
+
   return shows
     .map((show) => ({
       title: show.attributes?.title || show.id || "",
       feedUrl: show.attributes?.feed_url || ""
     }))
     .filter((show) => show.feedUrl)
+    .filter((show) => !excluded.has(show.feedUrl))
     .sort((a, b) => a.title.localeCompare(b.title));
 }

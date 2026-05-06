@@ -15,6 +15,25 @@ test("extracts feed URLs from Transistor show resources and sorts by title", () 
   ]);
 });
 
+test("excludes configured Transistor feed URLs", () => {
+  const feeds = extractFeedUrls(
+    [
+      {
+        attributes: {
+          title: "BPN Clips",
+          feed_url: "https://feeds.transistor.fm/bpn-clips-worth-listening-to-feed"
+        }
+      },
+      { attributes: { title: "A Show", feed_url: "https://feeds.transistor.fm/a-show" } }
+    ],
+    {
+      excludedFeedUrls: ["https://feeds.transistor.fm/bpn-clips-worth-listening-to-feed"]
+    }
+  );
+
+  assert.deepEqual(feeds, [{ title: "A Show", feedUrl: "https://feeds.transistor.fm/a-show" }]);
+});
+
 test("fetches paginated Transistor shows with API key header", async () => {
   const requested = [];
   const fetcher = async (url, options) => {

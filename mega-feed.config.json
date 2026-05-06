@@ -11,5 +11,8 @@
   "artworkPath": "assets/be_logo.jpg",
   "category": "Education",
   "maxEpisodes": 250,
-  "outputPath": "public/mega-feed.xml"
+  "outputPath": "public/mega-feed.xml",
+  "excludedFeedUrls": [
+    "https://feeds.transistor.fm/bpn-clips-worth-listening-to-feed"
+  ]
 }

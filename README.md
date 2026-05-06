@@ -36,6 +36,8 @@ This replaces `feeds.json` with the RSS feed URLs for public Transistor shows on
 TRANSISTOR_INCLUDE_PRIVATE=true
 ```
 
+Feeds listed in `excludedFeedUrls` in `mega-feed.config.json` are skipped when `feeds.json` is refreshed from Transistor.
+
 ## Add Or Remove Shows
 
 Edit `feeds.json` and add each source podcast RSS feed URL:
@@ -62,6 +64,7 @@ Edit `mega-feed.config.json`:
 - `category`: top-level podcast category
 - `maxEpisodes`: maximum merged episodes to include
 - `outputPath`: where the generated XML file is written
+- `excludedFeedUrls`: source RSS feed URLs to omit when refreshing from Transistor
 
 ## Build
 
